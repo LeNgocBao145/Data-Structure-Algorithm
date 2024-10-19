@@ -39,7 +39,39 @@ using namespace std;
 // 5 4 4 
 // 5 6 5
 
+// 7 15
+// 0 1 2
+// 0 2 4
+// 0 3 6
+// 1 2 5
+// 2 3 2
+// 3 2 1
+// 1 4 3
+// 2 4 2
+// 4 2 3
+// 3 4 5
+// 3 5 3
+// 4 5 5
+// 5 4 1
+// 4 6 1
+// 6 5 2
 
+// 8 15
+// 1 2 5
+// 1 4 3
+// 1 3 2
+// 2 3 1
+// 3 4 4 
+// 2 6 4 
+// 3 7 2
+// 4 8 3
+// 3 6 3
+// 6 7 1
+// 7 8 4
+// 3 5 6
+// 5 8 2
+// 4 5 1
+// 5 7 5
 void input(vector<vector<pair<int, int>>>& adj, int m)
 {
     for(int i = 0; i < m; i++)
@@ -47,7 +79,7 @@ void input(vector<vector<pair<int, int>>>& adj, int m)
         int x, y, m;
         cin >> x >> y >> m;
         adj[x].push_back({y, m});
-        //adj[y].push_back(x);
+        adj[y].push_back({x, m});
     }
 }
 
@@ -138,6 +170,6 @@ void dijkstra(int u, int end)
 
 int main()
 {
-    dijkstra(1, 6);
+    dijkstra(1, 8);
     return 0;
 }

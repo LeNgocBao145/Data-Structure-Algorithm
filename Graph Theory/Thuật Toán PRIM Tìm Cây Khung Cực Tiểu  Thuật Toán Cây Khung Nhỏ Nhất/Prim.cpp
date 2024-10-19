@@ -42,6 +42,14 @@ struct edge{
 // 4 6 10
 // 5 6 8
 
+// Output:
+// 18
+// 3 1 4
+// 2 3 1
+// 5 3 2
+// 4 5 3
+// 6 5 8
+
 void input(vector<vector<pair<int, int>>>& adj, int n, int m)
 {
 
@@ -56,7 +64,7 @@ void input(vector<vector<pair<int, int>>>& adj, int n, int m)
 
 //Cách bình thường không tối ưu
 
-void prim()
+void prim(int u)
 {
     int n, m;
     cin >> n >> m;
@@ -70,7 +78,7 @@ void prim()
 
     vector<edge> MST;
     int d = 0;  //khai bao tong do dai
-
+    exist[u] = true;
     
     while(MST.size() < n - 1)
     {
@@ -107,7 +115,39 @@ void prim()
     {
         cout << it.x << " " << it.y << " " << it.w << endl;
     }
+
 }
+
+// 8 15
+// 1 2 5
+// 1 4 3
+// 1 3 2
+// 2 3 1
+// 3 4 4 
+// 2 6 4 
+// 3 7 2
+// 4 8 3
+// 3 6 3
+// 6 7 1
+// 7 8 4
+// 3 5 6
+// 5 8 2
+// 4 5 1
+// 5 7 5
+
+// 9 12
+// 2 0 2
+// 2 3 5
+// 3 0 4
+// 7 5 3
+// 5 3 2
+// 5 8 5
+// 5 6 1
+// 3 4 1
+// 0 4 6
+// 8 6 4
+// 6 4 3
+// 4 1 4
 
 void advancedPRIM()
 {
@@ -181,10 +221,74 @@ void advancedPRIM()
     }
 }
 
+void primLord(int u)
+{
+    int n, m;
+    cin >> n >> m;
+
+    vector<vector<pair<int, int>>> adj(n + 1);
+
+    input(adj, n + 1, m);
+    bool* exist = new bool[n + 1];
+    fill(exist, exist + n + 1, false);
+    //  exist[i] = true thì i thuộc Vmst
+    //  exist[i] = false thì i thuộc v
+
+    //vector<edge> MST;
+    vector<int> MST;
+    int d = 0;  //khai bao tong do dai
+    exist[u] = true;
+    MST.push_back(u);
+    
+    while(MST.size() < n)
+    {
+        int min_w = INT_MAX;
+        int X, Y;
+
+        for(int i = 1; i <= n; i++)
+        {
+            if(exist[i])
+            {
+                for(int j = 0; j < adj[i].size(); j++)
+                {
+                    int first = adj[i][j].first;
+                    int edge2 = adj[i][j].second;
+
+                    if(exist[first] == false && edge2 < min_w)
+                    {
+                        min_w = edge2;
+                        Y = i;
+                        X = first;
+                    }
+                }
+            }
+        }
+
+        //MST.push_back({X, Y, min_w});
+        MST.push_back(X);
+        d += min_w;
+        exist[X] = true;
+    }
+
+    cout << d << endl;
+
+    // for(edge it : MST)
+    // {
+    //     cout << it.x << " " << it.y << " " << it.w << endl;
+    // }
+
+    for(auto x : MST)
+    {
+        cout << x << " ";
+    }
+}
+
 int main()
 {
     
+    //primLord(1);
 
+    //prim();
     advancedPRIM();
 
     return 0;

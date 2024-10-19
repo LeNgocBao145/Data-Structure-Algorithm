@@ -28,6 +28,28 @@ void DFS(vector<vector<int>>& adjacent, bool visited[], vector<int>& topo, int v
 // 4 5
 // 7 6
 
+// 5 5
+// 1 2
+// 1 4 
+// 2 3
+// 4 5
+// 5 3
+
+// 4 5 
+// 1 2
+// 2 3
+// 1 4
+// 1 3
+// 4 3
+
+// 5 6
+// 1 2
+// 2 3
+// 1 4
+// 4 3
+// 1 5
+// 5 3
+
 void sortTopo()
 {
     int n, m;
